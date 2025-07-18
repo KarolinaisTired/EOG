@@ -16,8 +16,8 @@ void UHorrorUI::OnSprintMeterUpdated(float Percent)
 	BP_SprintMeterUpdated(Percent);
 }
 
-void UHorrorUI::OnSprintStateChanged(bool bSprinting)
+void UHorrorUI::OnSprintStateChanged(bool bRecovering)
 {
 	// call the BP handler
-	BP_SprintStateChanged(bSprinting);
+	BP_SprintStateChanged(bRecovering);
 }

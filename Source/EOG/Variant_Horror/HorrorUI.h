@@ -28,7 +28,7 @@ public:
 
 	/** Called when the character's sprint state changes */
 	UFUNCTION()
-	void OnSprintStateChanged(bool bSprinting);
+	void OnSprintStateChanged(bool bRecovering);
 
 protected:
 
@@ -38,5 +38,5 @@ protected:
 
 	/** Passes control to Blueprint to update the sprint meter status */
 	UFUNCTION(BlueprintImplementableEvent, Category="Horror", meta=(DisplayName = "Sprint State Changed"))
-	void BP_SprintStateChanged(bool bSprinting);
+	void BP_SprintStateChanged(bool bRecovering);
 };

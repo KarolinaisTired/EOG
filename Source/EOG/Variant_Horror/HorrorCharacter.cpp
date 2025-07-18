@@ -72,9 +72,6 @@ void AHorrorCharacter::DoStartSprint()
 	{
 		// set the sprint walk speed
 		GetCharacterMovement()->MaxWalkSpeed = SprintSpeed;
-
-		// call the sprint state changed delegate
-		OnSprintStateChanged.Broadcast(true);
 	}
 
 }
@@ -89,16 +86,13 @@ void AHorrorCharacter::DoEndSprint()
 	{
 		// set the default walk speed
 		GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
-
-		// call the sprint state changed delegate
-		OnSprintStateChanged.Broadcast(false);
 	}
 }
 
 void AHorrorCharacter::SprintFixedTick()
 {
-	// are we out of recovery and still have stamina?
-	if (bSprinting && !bRecovering)
+	// are we out of recovery and still have stamina and are moving?
+	if (bSprinting && !bRecovering && (GetVelocity().X != 0.0f || GetVelocity().Y != 0.0f || GetVelocity().Z != 0.0f))
 	{
 
 		// do we still have meter to burn?
@@ -115,6 +109,8 @@ void AHorrorCharacter::SprintFixedTick()
 
 				// set the recovering walk speed
 				GetCharacterMovement()->MaxWalkSpeed = RecoveringWalkSpeed;
+
+				OnSprintStateChanged.Broadcast(true);
 			}
 		}
 		
@@ -132,7 +128,7 @@ void AHorrorCharacter::SprintFixedTick()
 			GetCharacterMovement()->MaxWalkSpeed = bSprinting ? SprintSpeed : WalkSpeed;
 
 			// update the sprint state depending on whether the button is down or not
-			OnSprintStateChanged.Broadcast(bSprinting);
+			OnSprintStateChanged.Broadcast(false);
 		}
 
 	}
