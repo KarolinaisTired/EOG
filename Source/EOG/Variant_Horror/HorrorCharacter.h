@@ -10,7 +10,7 @@ class USpotLightComponent;
 class UInputAction;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FUpdateSprintMeterDelegate, float, Percentage);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSprintStateChangedDelegate, bool, bSprinting);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSprintStateChangedDelegate, bool, bRecovering);
 
 /**
  *  Simple first person horror character
@@ -27,12 +27,11 @@ class EOG_API AHorrorCharacter : public AEOGCharacter
 	
 protected:
 
-	/** Fire weapon input action */
+	/** Sprint input action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category ="Input")
 	UInputAction* SprintAction;
 
 	/** If true, we're sprinting */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Sprint")
 	bool bSprinting = false;
 
 	/** If true, we're recovering stamina */
