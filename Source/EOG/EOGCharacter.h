@@ -8,7 +8,6 @@
 #include "EOGCharacter.generated.h"
 
 class UInputComponent;
-class USkeletalMeshComponent;
 class UCameraComponent;
 class UInputAction;
 struct FInputActionValue;
@@ -23,19 +22,15 @@ class AEOGCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
-	/** Pawn mesh: first person view (arms; seen only by self) */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components", meta = (AllowPrivateAccess = "true"))
-	USkeletalMeshComponent* FirstPersonMesh;
-
 	/** First person camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components", meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FirstPersonCameraComponent;
 
 protected:
 
-	/** Jump Input Action */
+	/** Interaction Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category ="Input")
-	UInputAction* JumpAction;
+	UInputAction* InteractAction;
 
 	/** Move Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category ="Input")
@@ -68,13 +63,9 @@ protected:
 	UFUNCTION(BlueprintCallable, Category="Input")
 	virtual void DoMove(float Right, float Forward);
 
-	/** Handles jump start inputs from either controls or UI interfaces */
+	/** Handles interaction inputs from either controls or UI interfaces */
 	UFUNCTION(BlueprintCallable, Category="Input")
-	virtual void DoJumpStart();
-
-	/** Handles jump end inputs from either controls or UI interfaces */
-	UFUNCTION(BlueprintCallable, Category="Input")
-	virtual void DoJumpEnd();
+	virtual void DoInteraction();
 
 protected:
 
@@ -83,9 +74,6 @@ protected:
 	
 
 public:
-
-	/** Returns the first person mesh **/
-	USkeletalMeshComponent* GetFirstPersonMesh() const { return FirstPersonMesh; }
 
 	/** Returns first person camera component **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }

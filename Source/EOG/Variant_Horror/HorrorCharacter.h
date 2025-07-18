@@ -32,6 +32,7 @@ protected:
 	UInputAction* SprintAction;
 
 	/** If true, we're sprinting */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Sprint")
 	bool bSprinting = false;
 
 	/** If true, we're recovering stamina */
