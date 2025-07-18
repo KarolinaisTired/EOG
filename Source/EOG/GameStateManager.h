@@ -34,6 +34,7 @@ public:
 	UFUNCTION(BlueprintCallable) void BroadcastStateChange(EGameState CurStateToBroadcast, bool BunnyChosen);
 	UFUNCTION(BlueprintCallable) void BroadcastPlayerInHouse();
 	UFUNCTION(BlueprintCallable) EGameState GetCurrentState() const;
+	UFUNCTION(BlueprintImplementableEvent) void OpenDoorToNextHouse();
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite) TArray<TSoftObjectPtr<UWorld>> HouseLevelInstances;
 	UPROPERTY(BlueprintReadWrite) FOnGameStateChanged OnGameStateChanged;

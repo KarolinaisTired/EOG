@@ -51,21 +51,24 @@ void AGameStateManager::HandleGameStateChange(EGameState CurState, bool CorrectB
 		{
 			NewStateIndex = static_cast<int32>(CurrentState) + 1; // Move onto the next house
 			CurrentState = static_cast<EGameState>(NewStateIndex);
-			FString EnumName = UEnum::GetValueAsString(CurrentState); 
+			FString EnumName = UEnum::GetValueAsString(CurrentState);
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Player had Right bunny"));
 			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, EnumName);
-
+			LoadHouse(NewStateIndex);
+			OpenDoorToNextHouse();
 		}
 		else // Player has completed the final house 
 		{
 			// TODO Trigger maybe BP instance to show boxes burning and bunny's head coming off, 
 			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Omg you won queen"));
 		}
-		LoadHouse(NewStateIndex);
 	}
 	else
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Player did not have bunny"));
-		LoadHouse(NewStateIndex); 
+		LoadHouse(NewStateIndex);
+		OpenDoorToNextHouse(); 
+
 	}
 }
 
