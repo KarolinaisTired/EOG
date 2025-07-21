@@ -35,6 +35,31 @@ AEOGCharacter::AEOGCharacter()
 	GetCharacterMovement()->AirControl = 0.5f;
 }
 
+void AEOGCharacter::Tick(float const DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	FVector RayStart = GetActorLocation();
+	FVector RayDirection = FirstPersonCameraComponent->GetForwardVector();
+	RayStart = FVector(RayStart.X + (RayDirection.X * 100), RayStart.Y + (RayDirection.Y * 100), RayStart.Z + (RayDirection.Z * 100));
+	FVector RayEnd = RayStart + (RayDirection * 1000);
+	FHitResult Hit;
+
+	if (GetWorld())
+	{
+		bool bActorHit = GetWorld()->LineTraceSingleByChannel(Hit, RayStart, RayEnd, ECC_Pawn, FCollisionQueryParams(), FCollisionResponseParams());
+		DrawDebugLine(GetWorld(), RayStart, RayEnd, FColor::Blue, false, 1, 0, 10);
+		if (bActorHit && Hit.GetActor() && Hit.GetActor()->ActorHasTag(TEXT("Bunny")))
+		{
+			bCanInteract = true;
+		}
+		else
+		{
+			bCanInteract = false;
+		}
+	}
+}
+
 void AEOGCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {	
 	// Set up action bindings
@@ -94,9 +119,4 @@ void AEOGCharacter::DoMove(float Right, float Forward)
 		AddMovementInput(GetActorRightVector(), Right);
 		AddMovementInput(GetActorForwardVector(), Forward);
 	}
-}
-
-void AEOGCharacter::DoInteraction()
-{
-	//todo interaction code
 }

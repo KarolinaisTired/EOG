@@ -47,6 +47,11 @@ protected:
 public:
 	AEOGCharacter();
 
+	virtual void Tick(float const DeltaTime) override;
+
+	UPROPERTY(BlueprintReadOnly, Category="Interaction")
+	bool bCanInteract = false;
+
 protected:
 
 	/** Called from Input Actions for movement input */
@@ -64,8 +69,8 @@ protected:
 	virtual void DoMove(float Right, float Forward);
 
 	/** Handles interaction inputs from either controls or UI interfaces */
-	UFUNCTION(BlueprintCallable, Category="Input")
-	virtual void DoInteraction();
+	UFUNCTION(BlueprintImplementableEvent, Category="Input")
+	void DoInteraction();
 
 protected:
 
