@@ -41,14 +41,14 @@ public:
 	UPROPERTY(BlueprintReadWrite) FOnPlayerInHouse FOnPlayerInHouse;
 
 	UPROPERTY() EGameState CurrentState;
-
+	
 protected:
 	virtual void BeginPlay() override;
 
 private:
-	int MaxStates = 4;
-	UPROPERTY() ULevelStreamingDynamic* StreamedHouseLevel; 
+	UPROPERTY() int MaxStates = 4;
+	UPROPERTY() ULevelStreamingDynamic* NextHouseToUnload;
+	UPROPERTY() ULevelStreamingDynamic* CurrentHouse;
+	UPROPERTY() FVector PreviousSpawnLocation;
+	UPROPERTY() FVector LevelSize = FVector(3800.f,0.f,0.f);;
 };
-
-// TODO if we choose wrong bunny, broadcast delegate with boolean of true or false, the BP of this will listen to that, if true, we get the current index of gamestate,
-// then set the CurrentState + 1 to whatever that is, then match that index to the ones in the level instance array, we then load that level instance in front of the current instance.
