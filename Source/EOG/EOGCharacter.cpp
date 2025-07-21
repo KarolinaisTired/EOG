@@ -35,21 +35,22 @@ AEOGCharacter::AEOGCharacter()
 	GetCharacterMovement()->AirControl = 0.5f;
 }
 
-void AEOGCharacter::Tick(float const DeltaTime)
+void AEOGCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	FVector RayStart = GetActorLocation();
+	FVector RayStart = FirstPersonCameraComponent->GetComponentLocation();
 	FVector RayDirection = FirstPersonCameraComponent->GetForwardVector();
-	RayStart = FVector(RayStart.X + (RayDirection.X * 100), RayStart.Y + (RayDirection.Y * 100), RayStart.Z + (RayDirection.Z * 100));
-	FVector RayEnd = RayStart + (RayDirection * 1000);
+	FVector RayEnd = RayStart + (RayDirection * 200);
 	FHitResult Hit;
+	FCollisionQueryParams QueryParams;
+	QueryParams.AddIgnoredActor(this);
 
 	if (GetWorld())
 	{
-		bool bActorHit = GetWorld()->LineTraceSingleByChannel(Hit, RayStart, RayEnd, ECC_Pawn, FCollisionQueryParams(), FCollisionResponseParams());
-		DrawDebugLine(GetWorld(), RayStart, RayEnd, FColor::Blue, false, 1, 0, 10);
-		if (bActorHit && Hit.GetActor() && Hit.GetActor()->ActorHasTag(TEXT("Bunny")))
+		bool bActorHit = GetWorld()->LineTraceSingleByChannel(Hit, RayStart, RayEnd, ECC_PhysicsBody, QueryParams);
+		
+		if (bActorHit && Hit.GetActor()->ActorHasTag("Bunny"))
 		{
 			bCanInteract = true;
 		}

@@ -47,7 +47,7 @@ protected:
 public:
 	AEOGCharacter();
 
-	virtual void Tick(float const DeltaTime) override;
+	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(BlueprintReadOnly, Category="Interaction")
 	bool bCanInteract = false;
