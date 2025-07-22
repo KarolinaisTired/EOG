@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "GameStateManager.h"
 #include "Engine/LevelStreamingDynamic.h"
 #include "Kismet/GameplayStatics.h"
@@ -22,12 +21,12 @@ void AGameStateManager::BeginPlay()
 		TSoftObjectPtr<UWorld> SoftLevelToLoad = HouseLevelInstances[HouseIndex];
 		UWorld* HouseToLoad = SoftLevelToLoad.LoadSynchronous();
 		FVector PlayerLocation = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation();
-		FVector SpawnLocation = PlayerLocation + FVector(0.f, 0.f, -200.f);
-
+		FVector SpawnLocation = PlayerLocation + FVector(1000.f, 0.f, -200.f);
+	
 		if (HouseToLoad)
 		{
 			bool bLevelLoaded = false;
-
+	
 			ULevelStreamingDynamic* LoadedHouse = ULevelStreamingDynamic::LoadLevelInstanceBySoftObjectPtr(
 				GetWorld(), HouseToLoad, SpawnLocation, FRotator::ZeroRotator, bLevelLoaded);
 			PreviousSpawnLocation = SpawnLocation;
