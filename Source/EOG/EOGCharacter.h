@@ -21,7 +21,7 @@ UCLASS(abstract)
 class AEOGCharacter : public ACharacter
 {
 	GENERATED_BODY()
-
+	
 	/** First person camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components", meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FirstPersonCameraComponent;
@@ -43,6 +43,10 @@ protected:
 	/** Mouse Look Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category ="Input")
 	class UInputAction* MouseLookAction;
+
+	/** Reference to Bunny Hit by Raycast */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category ="Hit")
+	AActor* HitBunny;
 	
 public:
 	AEOGCharacter();

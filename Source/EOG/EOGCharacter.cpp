@@ -39,20 +39,21 @@ void AEOGCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	FVector RayStart = FirstPersonCameraComponent->GetComponentLocation();
-	FVector RayDirection = FirstPersonCameraComponent->GetForwardVector();
-	FVector RayEnd = RayStart + (RayDirection * 200);
-	FHitResult Hit;
-	FCollisionQueryParams QueryParams;
-	QueryParams.AddIgnoredActor(this);
-
 	if (GetWorld())
 	{
+		FVector RayStart = FirstPersonCameraComponent->GetComponentLocation();
+		FVector RayDirection = FirstPersonCameraComponent->GetForwardVector();
+		FVector RayEnd = RayStart + (RayDirection * 200);
+		FHitResult Hit;
+		FCollisionQueryParams QueryParams;
+		QueryParams.AddIgnoredActor(this);
+		
 		bool bActorHit = GetWorld()->LineTraceSingleByChannel(Hit, RayStart, RayEnd, ECC_PhysicsBody, QueryParams);
 		
 		if (bActorHit && Hit.GetActor()->ActorHasTag("Bunny"))
 		{
 			bCanInteract = true;
+			HitBunny = Hit.GetActor();
 		}
 		else
 		{
