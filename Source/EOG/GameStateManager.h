@@ -50,5 +50,5 @@ private:
 	UPROPERTY() ULevelStreamingDynamic* NextHouseToUnload;
 	UPROPERTY() ULevelStreamingDynamic* CurrentHouse;
 	UPROPERTY() FVector PreviousSpawnLocation;
-	UPROPERTY() FVector LevelSize = FVector(3800.f,0.f,-20.f);;
+	UPROPERTY() FVector LevelSize = FVector(3800.f,0.f,0.f);;
 };
