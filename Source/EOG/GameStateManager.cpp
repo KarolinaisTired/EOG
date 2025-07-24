@@ -15,24 +15,24 @@ void AGameStateManager::BeginPlay()
 	CurrentState = EGameState::HouseOne;
 	FString EnumName = UEnum::GetValueAsString(CurrentState);
 
-	if (HouseLevelInstances.Num() > 0)
-	{
-		int32 HouseIndex = static_cast<int32>(CurrentState);
-		TSoftObjectPtr<UWorld> SoftLevelToLoad = HouseLevelInstances[HouseIndex];
-		UWorld* HouseToLoad = SoftLevelToLoad.LoadSynchronous();
-		FVector PlayerLocation = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation();
-		FVector SpawnLocation = PlayerLocation + FVector(1000.f, 0.f, -200.f);
-	
-		if (HouseToLoad)
-		{
-			bool bLevelLoaded = false;
-	
-			ULevelStreamingDynamic* LoadedHouse = ULevelStreamingDynamic::LoadLevelInstanceBySoftObjectPtr(
-				GetWorld(), HouseToLoad, SpawnLocation, FRotator::ZeroRotator, bLevelLoaded);
-			PreviousSpawnLocation = SpawnLocation;
-			NextHouseToUnload = LoadedHouse;
-		}
-	}
+	// if (HouseLevelInstances.Num() > 0)
+	// {
+	// 	int32 HouseIndex = static_cast<int32>(CurrentState);
+	// 	TSoftObjectPtr<UWorld> SoftLevelToLoad = HouseLevelInstances[HouseIndex];
+	// 	UWorld* HouseToLoad = SoftLevelToLoad.LoadSynchronous();
+	// 	FVector PlayerLocation = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation();
+	// 	FVector SpawnLocation = PlayerLocation + FVector(1300.f, 0.f, -200.f);
+	//
+	// 	if (HouseToLoad)
+	// 	{
+	// 		bool bLevelLoaded = false;
+	//
+	// 		ULevelStreamingDynamic* LoadedHouse = ULevelStreamingDynamic::LoadLevelInstanceBySoftObjectPtr(
+	// 			GetWorld(), HouseToLoad, SpawnLocation, FRotator::ZeroRotator, bLevelLoaded);
+	// 		PreviousSpawnLocation = SpawnLocation;
+	// 		NextHouseToUnload = LoadedHouse;
+	// 	}
+	// }
 	
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, EnumName);
 
@@ -68,7 +68,7 @@ void AGameStateManager::HandleGameStateChange(EGameState CurState, bool CorrectB
 		OpenDoorToNextHouse(); 
 	}
 }
-
+ 
 void AGameStateManager::OnPlayerInHouse() // Unload previous level once player has entered a new house
 {
 	if (NextHouseToUnload != nullptr)
