@@ -1,4 +1,6 @@
 Binaries
+!Plugins/FMODStudio/Binaries/Win64/fmod_vc.lib
+!Plugins/FMODStudio/Binaries/Win64/fmodL_vc.lib
 DerivedDataCache
 Intermediate
 Saved
