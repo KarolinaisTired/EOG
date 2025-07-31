@@ -37,8 +37,7 @@ void AGameStateManager::BeginPlay()
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, EnumName);
 
 	OnGameStateChanged.AddUniqueDynamic(this, &AGameStateManager::HandleGameStateChange);
-	FOnPlayerInHouse.AddUniqueDynamic(this, &AGameStateManager::OnPlayerInHouse);
-}
+	FOnPlayerInHouse.AddUniqueDynamic(this, &AGameStateManager::OnPlayerInHouse);}
 
 void AGameStateManager::HandleGameStateChange(EGameState CurState, bool CorrectBunnyChosen)
 {
